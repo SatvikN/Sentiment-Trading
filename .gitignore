@@ -77,4 +77,7 @@ Pipfile.lock
 sentiment_features.csv
 
 # NLTK data
-nltk_data/ 
+nltk_data/
+
+# Files
+config.py
