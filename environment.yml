@@ -13,3 +13,6 @@ dependencies:
   - yfinance 
   - gymnasium
   - matplotlib 
+  - scikit-learn
+  - xgboost 
+  - alpaca-trade-api 
