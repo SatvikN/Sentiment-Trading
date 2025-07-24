@@ -10,3 +10,4 @@ dependencies:
       - praw
       - pymongo 
   - nltk 
+  - yfinance 
