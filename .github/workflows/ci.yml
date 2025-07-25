@@ -1,0 +1,42 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f environment.yml ]; then pip install -r <(conda env export | grep -v "^prefix: "); fi
+
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 .
+
+      - name: Run tests (if any)
+        run: |
+          pip install pytest
+          if [ -d tests ]; then pytest; else echo "No tests directory"; fi
+
+      - name: Build Docker image (placeholder)
+        run: |
+          echo "Add Docker build steps here if needed"
+
+      - name: Deploy (placeholder)
+        run: |
+          echo "Add deployment steps here (e.g., to AWS, GCP, Azure, etc.)" 
