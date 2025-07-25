@@ -16,3 +16,4 @@ dependencies:
       - scikit-learn
       - xgboost 
       - alpaca-trade-api 
+      - chardet

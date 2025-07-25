@@ -25,26 +25,49 @@ df = pd.DataFrame(posts)
 sentiment_df = pd.json_normalize(df['sentiment'])
 df = pd.concat([df, sentiment_df], axis=1)
 
-# Convert created_utc to date
+# Convert created_utc to date and hour
 if 'created_utc' in df:
-    df['date'] = pd.to_datetime(df['created_utc']).dt.date
+    df['datetime'] = pd.to_datetime(df['created_utc'])
 else:
-    df['date'] = pd.to_datetime(df['created']).dt.date
+    df['datetime'] = pd.to_datetime(df['created'])
+df['date'] = df['datetime'].dt.date
+df['hour'] = df['datetime'].dt.hour
 
 # Explode tickers (one row per ticker per post)
 df = df.explode('tickers')
 
-# --- AGGREGATE FEATURES ---
-grouped = df.groupby(['tickers', 'date']).agg(
+# --- AGGREGATE FEATURES (DAILY) ---
+daily_grouped = df.groupby(['tickers', 'date']).agg(
     avg_sentiment=('compound', 'mean'),
     sentiment_volatility=('compound', 'std'),
     post_volume=('id', 'count')
 ).reset_index()
 
-# --- SENTIMENT CHANGE ---
-grouped = grouped.sort_values(['tickers', 'date'])
-grouped['sentiment_change'] = grouped.groupby('tickers')['avg_sentiment'].diff()
+daily_grouped = daily_grouped.sort_values(['tickers', 'date'])
+daily_grouped['sentiment_change'] = daily_grouped.groupby('tickers')['avg_sentiment'].diff()
+# Rolling 3-day average and momentum
+for ticker, group in daily_grouped.groupby('tickers'):
+    idx = group.index
+    daily_grouped.loc[idx, 'rolling_avg_sentiment'] = group['avg_sentiment'].rolling(window=3, min_periods=1).mean().values
+    daily_grouped.loc[idx, 'momentum_3d'] = group['avg_sentiment'].diff(periods=3).values
 
-# --- EXPORT TO CSV ---
-grouped.to_csv(OUTPUT_CSV, index=False)
-print(f'Feature CSV saved to {OUTPUT_CSV}') 
+daily_grouped.to_csv('sentiment_features_daily.csv', index=False)
+print('Daily feature CSV saved to sentiment_features_daily.csv')
+
+# --- AGGREGATE FEATURES (HOURLY) ---
+hourly_grouped = df.groupby(['tickers', 'date', 'hour']).agg(
+    avg_sentiment=('compound', 'mean'),
+    sentiment_volatility=('compound', 'std'),
+    post_volume=('id', 'count')
+).reset_index()
+
+hourly_grouped = hourly_grouped.sort_values(['tickers', 'date', 'hour'])
+hourly_grouped['sentiment_change'] = hourly_grouped.groupby('tickers')['avg_sentiment'].diff()
+# Rolling 3-hour average and momentum
+for ticker, group in hourly_grouped.groupby('tickers'):
+    idx = group.index
+    hourly_grouped.loc[idx, 'rolling_avg_sentiment'] = group['avg_sentiment'].rolling(window=3, min_periods=1).mean().values
+    hourly_grouped.loc[idx, 'momentum_3h'] = group['avg_sentiment'].diff(periods=3).values
+
+hourly_grouped.to_csv('sentiment_features_hourly.csv', index=False)
+print('Hourly feature CSV saved to sentiment_features_hourly.csv') 
