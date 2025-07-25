@@ -9,10 +9,10 @@ dependencies:
   - pip:
       - praw
       - pymongo 
-  - nltk 
-  - yfinance 
-  - gymnasium
-  - matplotlib 
-  - scikit-learn
-  - xgboost 
-  - alpaca-trade-api 
+      - nltk 
+      - yfinance 
+      - gymnasium
+      - matplotlib 
+      - scikit-learn
+      - xgboost 
+      - alpaca-trade-api 

@@ -4,8 +4,8 @@ import time
 import config
 
 # --- CONFIGURATION ---
-API_KEY = congif.alpaca_key
-API_SECRET = congif.alpaca_secret
+API_KEY = config.alpaca_key
+API_SECRET = config.alpaca_secret
 APCA_API_BASE_URL = 'https://paper-api.alpaca.markets'
 SIGNALS_CSV = 'ml_predictions.csv'  # Or backtest_results_ml.csv
 ORDER_QTY = 1  # Number of shares per trade
