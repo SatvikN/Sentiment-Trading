@@ -1,7 +1,7 @@
 # Sentiment Trading Reddit Scraper (MVP)
 
 ## Overview
-This script collects Reddit posts from r/wallstreetbets, r/investing, and r/stocks from the last 24 hours, filters for posts mentioning selected stock tickers, and stores them in MongoDB.
+This alogorithm collects social media data Reddit posts from subredits including but not limited to r/wallstreetbets, r/investing, r/stocks and then filters for posts mentioning select companies/stock tickers, and storing them in MongoDB.
 
 ## Setup
 
