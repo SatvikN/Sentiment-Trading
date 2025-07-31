@@ -14,7 +14,7 @@ This alogorithm collects social media data Reddit posts from subredits including
 
 ### 2. MongoDB
 - Install MongoDB locally or use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- Update the `MONGO_URI` in `reddit_scraper.py` if needed
+- Uphow ofte the `MONGO_URI` in `reddit_scraper.py` if needed
 
 ### 3. Install Requirements
 ```
@@ -28,7 +28,3 @@ python reddit_scraper.py
 
 ## Customization
 - Edit `SUBREDDITS` and `TICKERS` in `reddit_scraper.py` to change what you collect.
-
-## Next Steps
-- Expand to include comments
-- Add sentiment analysis pipeline 
