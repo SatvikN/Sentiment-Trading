@@ -23,4 +23,4 @@ run_scraper = BashOperator(
     task_id='run_reddit_scraper',
     bash_command='python3 /Users/satviknayak/work/projects/sentiment_trading/reddit_scraper.py',
     dag=dag,
-) 
+)

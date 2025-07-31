@@ -45,4 +45,4 @@ for _, row in today_signals.iterrows():
         print(f"Error placing order for {ticker}: {e}")
     time.sleep(1)  # Avoid rate limits
 
-print("Alpaca paper trading script complete.") 
+print("Alpaca paper trading script complete.")

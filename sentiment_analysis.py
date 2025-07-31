@@ -64,4 +64,4 @@ def analyze_and_update_sentiment():
     print("Sentiment analysis complete.")
 
 if __name__ == '__main__':
-    analyze_and_update_sentiment() 
+    analyze_and_update_sentiment()

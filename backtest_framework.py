@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.ensemble import RandomForestClassifier
-from xgboost import XGBClassifier
 
 INPUT_CSV = 'merged_features.csv'
 ML_PREDICTIONS_CSV = 'ml_predictions.csv'
@@ -19,6 +17,7 @@ def rule_based_strategy(row):
     else:
         return 'hold'
 
+
 def ml_strategy(row):
     # Use ML model predictions as actions (expects 'ml_action' column)
     if 'ml_action' in row and not pd.isnull(row['ml_action']):
@@ -30,6 +29,7 @@ def ml_strategy(row):
             return 'hold'
     else:
         return 'hold'
+
 
 # --- BACKTEST ENGINE ---
 def backtest(df, strategy_func, label='Strategy'):
@@ -98,6 +98,7 @@ def backtest(df, strategy_func, label='Strategy'):
         results.append(tdf)
     return pd.concat(results)
 
+
 # --- ML PREDICTION GENERATION ---
 def generate_ml_predictions(df):
     from sklearn.ensemble import RandomForestClassifier
@@ -111,8 +112,8 @@ def generate_ml_predictions(df):
     y = df['label']
     # Train/test split (time-based)
     split_idx = int(len(df) * 0.8)
-    X_train, X_test = X.iloc[:split_idx], X.iloc[split_idx:]
-    y_train, y_test = y.iloc[:split_idx], y.iloc[split_idx:]
+    X_train = X.iloc[:split_idx]
+    y_train = y.iloc[:split_idx]
     rf = RandomForestClassifier(n_estimators=100, random_state=42)
     rf.fit(X_train, y_train)
     y_pred = rf.predict(X)
@@ -120,6 +121,7 @@ def generate_ml_predictions(df):
     df.to_csv(ML_PREDICTIONS_CSV, index=False)
     print(f"ML predictions saved to {ML_PREDICTIONS_CSV}")
     return df
+
 
 # --- MAIN ---
 if __name__ == '__main__':
@@ -133,4 +135,4 @@ if __name__ == '__main__':
     ml_results = backtest(ml_df, ml_strategy, label='ML')
     # Save results
     rule_results.to_csv('backtest_results_rule.csv', index=False)
-    ml_results.to_csv('backtest_results_ml.csv', index=False) 
+    ml_results.to_csv('backtest_results_ml.csv', index=False)

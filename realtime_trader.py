@@ -52,4 +52,4 @@ while True:
         # Log action
         with open('trade_log.txt', 'a') as f:
             f.write(f"{datetime.utcnow()}, {ticker}, {signal}, {last_price}, {positions[ticker]}\n")
-    time.sleep(60) 
+    time.sleep(60)

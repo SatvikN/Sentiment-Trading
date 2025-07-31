@@ -98,4 +98,4 @@ else:
 
 # --- ALERTS (Stub) ---
 if not trade_df.empty and trade_df['action'].str.contains('sell').any():
-    st.warning('Recent sell action detected!') 
+    st.warning('Recent sell action detected!')

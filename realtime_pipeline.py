@@ -64,4 +64,4 @@ if __name__ == '__main__':
     import threading
     reddit_thread = threading.Thread(target=stream_reddit, daemon=True)
     reddit_thread.start()
-    sync_and_print() 
+    sync_and_print()

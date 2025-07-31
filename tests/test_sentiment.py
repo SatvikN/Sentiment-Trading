@@ -31,4 +31,4 @@ def test_finbert_score_keys(monkeypatch):
     # Mock the actual model call for speed
     monkeypatch.setattr('sentiment_analysis.finbert_score', lambda text: {'finbert_positive': 0.1, 'finbert_neutral': 0.8, 'finbert_negative': 0.1})
     result = finbert_score("The market is stable.")
-    assert set(result.keys()) == {'finbert_positive', 'finbert_neutral', 'finbert_negative'} 
+    assert set(result.keys()) == {'finbert_positive', 'finbert_neutral', 'finbert_negative'}

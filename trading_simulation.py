@@ -52,4 +52,4 @@ plt.tight_layout()
 plt.show()
 
 # --- PRINT FINAL PORTFOLIO VALUES ---
-print(final_df.groupby('tickers').tail(1)[['tickers', 'portfolio_value']]) 
+print(final_df.groupby('tickers').tail(1)[['tickers', 'portfolio_value']])

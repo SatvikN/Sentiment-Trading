@@ -70,4 +70,4 @@ for ticker, group in hourly_grouped.groupby('tickers'):
     hourly_grouped.loc[idx, 'momentum_3h'] = group['avg_sentiment'].diff(periods=3).values
 
 hourly_grouped.to_csv('sentiment_features_hourly.csv', index=False)
-print('Hourly feature CSV saved to sentiment_features_hourly.csv') 
+print('Hourly feature CSV saved to sentiment_features_hourly.csv')

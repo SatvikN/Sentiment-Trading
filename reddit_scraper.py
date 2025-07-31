@@ -66,4 +66,4 @@ if __name__ == '__main__':
             collection.insert_many(posts)
             print(f"Inserted {len(posts)} posts from r/{sub}")
         all_posts.extend(posts)
-    print(f"Total posts inserted: {len(all_posts)}") 
+    print(f"Total posts inserted: {len(all_posts)}")
